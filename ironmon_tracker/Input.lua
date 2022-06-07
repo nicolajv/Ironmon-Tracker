@@ -1,3 +1,5 @@
+require "winapi"
+
 Input = {
 	mousetab = {},
 	mousetab_prev = {},
