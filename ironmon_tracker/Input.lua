@@ -30,10 +30,7 @@ function Input.update()
 				Tracker.Data.selectedSlot = enemySlotOne
 				Tracker.Data.targetPlayer = 1
 				Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
-				CopyMon()
 			end
-		else
-			CopyMon()
 		end
 
 		Tracker.redraw = true
