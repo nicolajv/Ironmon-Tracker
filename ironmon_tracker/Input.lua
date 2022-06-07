@@ -103,29 +103,30 @@ function Input.update()
 		end
 	end
 
-	Input.joypad = joypadButtons
-end
+	-- "Settings.controls.COPY_MON" pressed
+	if joypadButtons[Settings.controls.COPY_MON] == true and Input.joypad[Settings.controls.COPY_MON] ~= joypadButtons[Settings.controls.COPY_MON] then
+		local stats = {}
+		table.insert(stats, PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name)
+		table.insert(stats, Tracker.Data.selectedPokemon.maxHP)
+		table.insert(stats, Tracker.Data.selectedPokemon.atk)
+		table.insert(stats, Tracker.Data.selectedPokemon.def)
+		table.insert(stats, Tracker.Data.selectedPokemon.spa)
+		table.insert(stats, Tracker.Data.selectedPokemon.spd)
+		table.insert(stats, Tracker.Data.selectedPokemon.spe)
+		table.insert(stats, Tracker.Data.selectedPokemon.level)
+		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move1 + 1].name)
+		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move2 + 1].name)
+		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move3 + 1].name)
+		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move4 + 1].name)
+		table.insert(stats, MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1])
+		local cpyString = ""
+		for k, v in pairs(stats) do
+			cpyString = cpyString .. v .. "	"
+		  end
+		winapi.set_clipboard(cpyString)
+	end
 
-function CopyMon()
-	local stats = {}
-	table.insert(stats, PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name)
-	table.insert(stats, Tracker.Data.selectedPokemon.maxHP)
-	table.insert(stats, Tracker.Data.selectedPokemon.atk)
-	table.insert(stats, Tracker.Data.selectedPokemon.def)
-	table.insert(stats, Tracker.Data.selectedPokemon.spa)
-	table.insert(stats, Tracker.Data.selectedPokemon.spd)
-	table.insert(stats, Tracker.Data.selectedPokemon.spe)
-	table.insert(stats, Tracker.Data.selectedPokemon.level)
-	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move1 + 1].name)
-	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move2 + 1].name)
-	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move3 + 1].name)
-	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move4 + 1].name)
-	table.insert(stats, MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1])
-	local cpyString = ""
-	for k, v in pairs(stats) do
-		cpyString = cpyString .. v .. "	"
-	  end
-	winapi.set_clipboard(cpyString)
+	Input.joypad = joypadButtons
 end
 
 function Input.check(xmouse, ymouse)
