@@ -102,25 +102,19 @@ function Input.update()
 
 	-- "Settings.controls.COPY_MON" pressed
 	if joypadButtons[Settings.controls.COPY_MON] == true and Input.joypad[Settings.controls.COPY_MON] ~= joypadButtons[Settings.controls.COPY_MON] then
-		local stats = {}
-		table.insert(stats, PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name)
-		table.insert(stats, Tracker.Data.selectedPokemon.maxHP)
-		table.insert(stats, Tracker.Data.selectedPokemon.atk)
-		table.insert(stats, Tracker.Data.selectedPokemon.def)
-		table.insert(stats, Tracker.Data.selectedPokemon.spa)
-		table.insert(stats, Tracker.Data.selectedPokemon.spd)
-		table.insert(stats, Tracker.Data.selectedPokemon.spe)
-		table.insert(stats, Tracker.Data.selectedPokemon.level)
-		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move1 + 1].name)
-		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move2 + 1].name)
-		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move3 + 1].name)
-		table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move4 + 1].name)
-		table.insert(stats, MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1])
-		local cpyString = ""
-		for k, v in pairs(stats) do
-			cpyString = cpyString .. v .. "	"
-		  end
-		winapi.set_clipboard(cpyString)
+		if Tracker.Data.inBattle == 1 then
+			Tracker.Data.selectedPlayer = (Tracker.Data.selectedPlayer % 2) + 1
+			if Tracker.Data.selectedPlayer == 2 then
+				local stats = {PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name, Tracker.Data.selectedPokemon.maxHP, Tracker.Data.selectedPokemon.atk, Tracker.Data.selectedPokemon.def, Tracker.Data.selectedPokemon.spa, Tracker.Data.selectedPokemon.spd, Tracker.Data.selectedPokemon.spe, Tracker.Data.selectedPokemon.level, MoveData[Tracker.Data.selectedPokemon.move1 + 1].name, MoveData[Tracker.Data.selectedPokemon.move2 + 1].name, MoveData[Tracker.Data.selectedPokemon.move3 + 1].name, MoveData[Tracker.Data.selectedPokemon.move4 + 1].name, MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1]}
+				local cpyString = ""
+				for k, v in pairs(stats) do
+					cpyString = cpyString .. v .. "	"
+				end
+				winapi.set_clipboard(cpyString)
+			else
+				winapi.set_clipboard("You were viewing an opposing Pokemon. Please only copy your own Pokemon!")
+			end
+		end
 	end
 
 	Input.joypad = joypadButtons
