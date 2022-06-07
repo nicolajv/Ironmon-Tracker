@@ -65,7 +65,7 @@ function Input.update()
 	end
 
 	-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
-	if joypadButtons[Settings.controls.CYCLEl_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
+	if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
 		if Tracker.controller.framesSinceInput < Tracker.controller.boxVisibleFrames then
 			if Tracker.controller.statIndex == 1 then
 				Program.StatButtonState.hp = ((Program.StatButtonState.hp + 1) % 3) + 1
@@ -107,20 +107,25 @@ function Input.update()
 end
 
 function CopyMon()
-	local pName = PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name
-	local pHealth = Tracker.Data.selectedPokemon.maxHP
-	local pAttack = Tracker.Data.selectedPokemon.atk
-	local pDefense = Tracker.Data.selectedPokemon.def
-	local pSAttack = Tracker.Data.selectedPokemon.spa
-	local pSDefense = Tracker.Data.selectedPokemon.spd
-	local pSpeed = Tracker.Data.selectedPokemon.spe
-	local pLevel = Tracker.Data.selectedPokemon.level
-	local pMove1 = MoveData[Tracker.Data.selectedPokemon.move1 + 1].name
-	local pMove2 = MoveData[Tracker.Data.selectedPokemon.move2 + 1].name
-	local pMove3 = MoveData[Tracker.Data.selectedPokemon.move3 + 1].name
-	local pMove4 = MoveData[Tracker.Data.selectedPokemon.move4 + 1].name
-	local pAbility = MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1]
-	winapi.set_clipboard(pName .. "	" .. pHealth .. "	" .. pAttack .. "	" .. pDefense .. "	" .. pSAttack .. "	" .. pSDefense .. "	" .. pSpeed .. "	" .. pLevel .. "	" .. pMove1 .. "	" .. pMove2 .. "	" .. pMove3 .. "	" .. pMove4 .. "	" .. pAbility)
+	local stats = {}
+	table.insert(stats, PokemonData[Tracker.Data.selectedPokemon.pokemonID + 1].name)
+	table.insert(stats, Tracker.Data.selectedPokemon.maxHP)
+	table.insert(stats, Tracker.Data.selectedPokemon.atk)
+	table.insert(stats, Tracker.Data.selectedPokemon.def)
+	table.insert(stats, Tracker.Data.selectedPokemon.spa)
+	table.insert(stats, Tracker.Data.selectedPokemon.spd)
+	table.insert(stats, Tracker.Data.selectedPokemon.spe)
+	table.insert(stats, Tracker.Data.selectedPokemon.level)
+	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move1 + 1].name)
+	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move2 + 1].name)
+	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move3 + 1].name)
+	table.insert(stats, MoveData[Tracker.Data.selectedPokemon.move4 + 1].name)
+	table.insert(stats, MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1])
+	local cpyString = ""
+	for k, v in pairs(stats) do
+		cpyString = cpyString .. v .. "	"
+	  end
+	winapi.set_clipboard(cpyString)
 end
 
 function Input.check(xmouse, ymouse)
