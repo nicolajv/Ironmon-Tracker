@@ -120,7 +120,7 @@ function CopyMon()
 	local pMove3 = MoveData[Tracker.Data.selectedPokemon.move3 + 1].name
 	local pMove4 = MoveData[Tracker.Data.selectedPokemon.move4 + 1].name
 	local pAbility = MiscData.ability[Tracker.Data.selectedPokemon["ability"] + 1]
-	winapi.set_clipboard(pName .. "," .. pHealth .. "," .. pAttack .. "," .. pDefense .. "," .. pSAttack .. "," .. pSDefense .. "," .. pSpeed .. "," .. pLevel .. "," .. pMove1 .. "," .. pMove2 .. "," .. pMove3 .. "," .. pMove4 .. "," .. pAbility)
+	winapi.set_clipboard(pName .. "	" .. pHealth .. "	" .. pAttack .. "	" .. pDefense .. "	" .. pSAttack .. "	" .. pSDefense .. "	" .. pSpeed .. "	" .. pLevel .. "	" .. pMove1 .. "	" .. pMove2 .. "	" .. pMove3 .. "	" .. pMove4 .. "	" .. pAbility)
 end
 
 function Input.check(xmouse, ymouse)
